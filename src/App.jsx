@@ -3,8 +3,8 @@ import "./styles.css";
 
 export const App = () => {
   const [todoText, setTodoText] = useState("");
-  const [incompleteTodos, setIncompleteTodos] = useState(["aaaa", "bbbb"]);
-  const [completeTodos, setCompleteTodos] = useState(["cccc"]);
+  const [incompleteTodos, setIncompleteTodos] = useState([]);
+  const [completeTodos, setCompleteTodos] = useState([]);
 
   const changeText = (e) => setTodoText(e.target.value);
 
@@ -24,9 +24,19 @@ export const App = () => {
   const beCompleted = (index) => {
     const newIncompleteTodo = [...incompleteTodos];
     newIncompleteTodo.splice(index, 1);
+
     const newCompleteTodo = [...completeTodos, incompleteTodos[index]];
     setIncompleteTodos(newIncompleteTodo);
     setCompleteTodos(newCompleteTodo);
+  };
+
+  const backIncompleted = (index) => {
+    const target = [...completeTodos];
+    target.splice(index, 1);
+
+    const newIncompleteTodo = [...incompleteTodos, completeTodos[index]];
+    setCompleteTodos(target);
+    setIncompleteTodos(newIncompleteTodo);
   };
   return (
     <>
@@ -56,11 +66,11 @@ export const App = () => {
       <div className="completed_area">
         <p className="title">Completed Tasks</p>
         <ul>
-          {completeTodos.map((todo) => {
+          {completeTodos.map((todo, index) => {
             return (
               <div key={todo} className="list_row">
                 <li>{todo}</li>
-                <button>BACK</button>
+                <button onClick={() => backIncompleted(index)}>BACK</button>
               </div>
             );
           })}
