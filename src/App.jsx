@@ -47,7 +47,11 @@ export const App = () => {
         todoText={todoText}
         changeText={changeText}
         addText={addText}
+        disabled={incompleteTodos.length >= 5}
       />
+      {incompleteTodos.length >= 5 && (
+        <p style={{ color: "red" }}>DO YOUR TASKS!!!</p>
+      )}
       <IncompleteTodo
         incompleteTodos={incompleteTodos}
         beCompleted={beCompleted}
