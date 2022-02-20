@@ -20,6 +20,14 @@ export const App = () => {
     newTodo.splice(index, 1);
     setIncompleteTodos(newTodo);
   };
+
+  const beCompleted = (index) => {
+    const newIncompleteTodo = [...incompleteTodos];
+    newIncompleteTodo.splice(index, 1);
+    const newCompleteTodo = [...completeTodos, incompleteTodos[index]];
+    setIncompleteTodos(newIncompleteTodo);
+    setCompleteTodos(newCompleteTodo);
+  };
   return (
     <>
       <div className="input_area">
@@ -38,7 +46,7 @@ export const App = () => {
             return (
               <div key={todo} className="list_row">
                 <li>{todo}</li>
-                <button>DONE</button>
+                <button onClick={() => beCompleted(index)}>DONE</button>
                 <button onClick={() => removeText(index)}>DELETE</button>
               </div>
             );
